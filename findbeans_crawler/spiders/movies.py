@@ -25,7 +25,7 @@ class MoviesSpider(CrawlSpider):
 
     def parse_item(self, response):
         item = FindbeansCrawlerItem()
-        item['rank'] = response.xpath('//div[@id="titleAwardsRanks"]/strong/a/text()').re(r'[\s\w]*#(\d+)')[0]
+        item['rank'] = int(response.xpath('//div[@id="titleAwardsRanks"]/strong/a/text()').re(r'[\s\w]*#(\d+)')[0])
         item['title'] = response.xpath('//div[@class="title_wrapper"]/h1/text()').extract_first().strip()
         item['rating'] = response.xpath('//div[@class="ratingValue"]/strong/span/text()').extract_first()
         item['director'] = response.xpath('//span[@itemprop="director"]/a/span/text()').extract_first()
